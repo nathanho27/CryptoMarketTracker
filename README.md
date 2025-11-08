@@ -4,10 +4,9 @@
 ---
 
 ## Introduction / Goal  
-This is an ongoing project where I am learning how to pull and visualize real-time cryptocurrency data using Python, SQL, and Tableau Public.  
-The data comes from the free CoinGecko API, and the goal is to practice turning raw API data into something visual and easy to understand.  
+This is an ongoing project where I’m learning how to collect and visualize cryptocurrency data using Python, SQL, Excel, and Tableau Public. The data comes from the CoinGecko API, and the goal is to turn raw price data into something clear, organized, and easy to explore.
 
-Right now, the focus is on building a small dashboard that shows the top cryptocurrencies by market cap, their 24-hour price changes, and overall market trends.
+Right now, the focus is on building a small Tableau dashboard that highlights top cryptocurrencies, 24-hour price movement, and overall market trends, while also using Excel and SQL to clean, organize, and analyze the data along the way.
 
 ---
 
@@ -19,7 +18,7 @@ A screenshot will also be added once the visuals are finalized.
 
 ## Table of Contents  
 1. Data Overview  
-2. Implementation with Python and SQL  
+2. Implementation with Python, SQL, and Excel  
 3. Dashboard Insights (in progress)  
 4. Next Steps  
 5. Resources  
