@@ -1,47 +1,113 @@
-# Crypto Market Tracker  
-*(Work in Progress)*  
+# CryptoMarketTracker
+
+A full data pipeline and analytics project that pulls crypto price history, stores it in SQLite, computes performance and risk KPIs in Python, and visualizes insights in an interactive Tableau dashboard.
+
+The objective is to move beyond simple price charts and quantify:
+
+- How far an asset is from its All-Time High
+- How much return it generates relative to risk (Sharpe Ratio)
+- How severe losses can get (maximum drawdown)
+- Whether current volatility indicates stability or danger
 
 ---
 
-## Introduction / Goal  
-This is an ongoing project where I’m learning how to collect and visualize cryptocurrency data using Python, SQL, Excel, and Tableau Public. The data comes from the CoinGecko API, and the goal is to turn raw price data into something clear, organized, and easy to explore.
+## Live Dashboard
 
-Right now, the focus is on building a small Tableau dashboard that highlights top cryptocurrencies, 24-hour price movement, and overall market trends, while also using Excel and SQL to clean, organize, and analyze the data along the way.
+Tableau Public:  
+https://public.tableau.com/app/profile/nathan.ho2158/viz/CryptoMarketTrackerBTCETH/Dashboard1
 
----
+Dashboard includes:
 
-## Dashboard Preview  
-Dashboard will be added here once it is published on Tableau Public.  
-A screenshot will also be added once the visuals are finalized.
-
----
-
-## Table of Contents  
-1. Data Overview  
-2. Implementation with Python, SQL, and Excel  
-3. Dashboard Insights (in progress)  
-4. Next Steps  
-5. Resources  
+- Interactive selection between assets (BTC and ETH)
+- Price trend with moving average overlays
+- Daily returns and volatility behavior
+- A visual layer to explore short-term movement and momentum
 
 ---
 
-## Data Overview  
-**Source:** [CoinGecko API](https://www.coingecko.com/en/api)  
-- Currency: USD  
-- Fields: Coin name, symbol, current price, market cap, 24h price change, trading volume  
-- Frequency: Can be updated daily  
+## Repository Structure
+
+```
+CryptoMarketTracker/
+│── Workbook/              # Tableau workbook
+│── data/raw/              # Historical CSV price data
+│── exports/               # Exported KPI tables and output files
+│── BtcKPI.ipynb           # KPI and performance analysis notebook
+│── SQL.ipynb              # SQL queries and daily aggregation logic
+│── LoadToSQLite.py        # Loads raw CSVs into SQLite
+│── DataFetch.py           # Data pull script (optional)
+│── ExportExcel.py         # Exports SQLite tables to Excel
+│── CryptoData.db          # SQLite database (not committed; ignored via .gitignore)
+│── README.md
+└── .gitignore
+```
 
 ---
 
-## Implementation with Python and SQL  
+## Tech Stack
 
-### 1. API Extraction (Python)
-```python
-import requests, pandas as pd
+- Python (pandas, numpy, sqlite3, matplotlib)
+- SQLite for structured storage
+- Jupyter Notebooks for analysis
+- Tableau for dashboard visualization
+- Git and GitHub for version control
 
-url = "https://api.coingecko.com/api/v3/coins/markets"
-params = {"vs_currency":"usd","order":"market_cap_desc","per_page":10}
-data = requests.get(url, params=params).json()
+---
 
-df = pd.DataFrame(data)[["id","symbol","current_price","market_cap","price_change_percentage_24h","total_volume"]]
-df.to_csv("crypto_prices.csv", index=False)
+## KPIs and Metrics Calculated
+
+### Core Performance Metrics
+- Percent From All Time High
+- Sharpe Ratio (annualized)
+- Max Drawdown
+
+### Market Behavior Metrics
+- 30-day correlation vs Bitcoin
+- Win Rate (all time and rolling 90 days)
+- Volatility regime classification (Low / Medium / High)
+
+These metrics answer:
+
+- Is the asset recovering or still far from previous highs?
+- Is it generating return efficiently relative to volatility?
+- What is the worst-case historical decline?
+- Is the asset behaving independently or following market beta?
+- Is today’s volatility environment stable or elevated?
+
+---
+
+## How to Run
+
+1. Load all CSV price data into SQLite  
+   ```sh
+   python LoadToSQLite.py
+   ```
+
+2. Build aggregated daily tables  
+   Open and run:
+   ```
+   SQL.ipynb
+   ```
+
+3. Compute performance and risk KPIs  
+   Open and run:
+   ```
+   BtcKPI.ipynb
+   ```
+
+Results are exported to:
+
+```
+exports/coreKpis.csv
+exports/extraKpis.csv
+```
+
+---
+
+## Summary
+
+Price charts show movement.  
+This project measures performance.
+
+By combining database storage, Python-based analytics, and a Tableau front end, it enables both quantitative KPI analysis and intuitive visualization. The pipeline is modular, reusable, and can be scaled to additional assets or time periods.
+
